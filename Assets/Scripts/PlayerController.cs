@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -19,14 +20,21 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         Pos_Text.text = rb.transform.position.ToString();
-    }
-    void FixedUpdate()
-    {
-        float moveHor = Input.GetAxis("Horizontal");
-        float moveVert = Input.GetAxis("Vertical");
-
-        Vector3 movement = new Vector3(moveHor, 0.0f, moveVert);
-
-        rb.AddForce(movement * speed);
+        if (Input.GetKey(KeyCode.A))
+            rb.transform.position += Vector3.left * .05f;
+        if (Input.GetKey(KeyCode.D))
+            rb.transform.position += Vector3.right * .05f;
+        if (Input.GetKey(KeyCode.W))
+            rb.transform.position += Vector3.forward * .05f;
+        if (Input.GetKey(KeyCode.S))
+            rb.transform.position += Vector3.back * .05f;
+        if (Input.GetKey(KeyCode.Space))
+            rb.transform.position += Vector3.up * .1f;
+        if (Input.GetKeyDown(KeyCode.Escape))
+            Application.Quit();
+        if (Input.GetKeyDown(KeyCode.R))
+            SceneManager.LoadScene("0.main");
+        if (Input.GetKeyDown(KeyCode.M))
+            SceneManager.LoadScene("Menu");
     }
 }
